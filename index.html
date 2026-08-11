@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charles Joseph Vendicacion — Full-Stack Developer</title>
+<meta name="description" content="Portfolio of Charles Joseph Vendicacion, a full-stack developer building end-to-end web applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" id="site-header">
+  <div class="nav-inner">
+    <a href="#home" class="logo">CJV<span class="logo-dot">.</span></a>
+    <nav class="nav-links" id="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle color theme">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button id="nav-toggle" class="icon-btn nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="home" class="hero">
+    <canvas id="particle-canvas"></canvas>
+    <div class="hero-content reveal">
+      <p class="eyebrow">Hi, I'm</p>
+      <h1>Charles Joseph <span class="accent-text">Vendicacion</span></h1>
+      <p class="hero-role">Full-Stack Developer</p>
+      <p class="hero-desc">
+        I design, build, and ship complete web applications — from database schema to
+        deployed product. Currently the sole developer behind
+        <strong>FineAnts</strong>, a financial management platform.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll to About section">
+      <span></span>
+    </a>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-inner about-grid">
+      <div class="reveal">
+        <p class="section-eyebrow">About</p>
+        <h2 class="section-title">A developer who owns the whole stack.</h2>
+        <p class="about-text">
+          I'm a full-stack developer based in Bulacan, Philippines. I currently
+          work as the sole developer on <strong>FineAnts</strong>, a financial
+          management platform — handling everything from frontend and API
+          design to a dedicated <strong>Xero Sync microservice</strong>, plus
+          repository management and deployments end to end.
+        </p>
+        <p class="about-text">
+          Before that, I worked as a JavaScript developer at
+          <strong>Arcadier</strong> in Australia, building features across a
+          multi-tenant SaaS marketplace platform, and started my career as
+          an intern before working as a software support specialist, doing
+          backend and database work.
+        </p>
+      </div>
+      <div class="about-facts reveal">
+        <div class="fact-card">
+          <span class="fact-label">Location</span>
+          <span class="fact-value">Bulacan, Philippines</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">Education</span>
+          <span class="fact-value">BS Information Technology, STI College — Magna Cum Laude</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">Focus</span>
+          <span class="fact-value">React · Node.js · .NET · SQL</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-label">Currently</span>
+          <span class="fact-value">Sole Developer @ FineAnts</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section section-alt">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">Skills</p>
+      <h2 class="section-title reveal">Tools I build with.</h2>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <h3>Languages</h3>
+          <div class="pill-row">
+            <span class="pill">Java</span>
+            <span class="pill">C#</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">PHP</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Frontend</h3>
+          <div class="pill-row">
+            <span class="pill">React</span>
+            <span class="pill">Next.js</span>
+            <span class="pill">HTML5</span>
+            <span class="pill">CSS3</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Backend</h3>
+          <div class="pill-row">
+            <span class="pill">Node.js</span>
+            <span class="pill">Express</span>
+            <span class="pill">ASP.NET Core</span>
+            <span class="pill">Windows Forms</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Databases</h3>
+          <div class="pill-row">
+            <span class="pill">MSSQL</span>
+            <span class="pill">MySQL</span>
+            <span class="pill">MongoDB</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="pill-row">
+            <span class="pill">Git</span>
+            <span class="pill">Vercel</span>
+            <span class="pill">Azure</span>
+            <span class="pill">SAP Business One</span>
+            <span class="pill">Postman</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h3>Other</h3>
+          <div class="pill-row">
+            <span class="pill">Unity</span>
+            <span class="pill">Gradle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">Experience</p>
+      <h2 class="section-title reveal">Where I've worked.</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2024 — Present</span>
+            <h3>Full-Stack Developer <span class="timeline-sub">· FineAnts, Australia</span></h3>
+            <p>
+              Own the full lifecycle of FineAnts end to end: frontend, API
+              layer, database, and a dedicated Xero Sync microservice for
+              syncing financial data. Also manage the repository and handle
+              all deployments.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Nov 2023 — Sept 2024</span>
+            <h3>JavaScript Developer (Mid-Level) <span class="timeline-sub">· Arcadier Pte. Ltd., Australia</span></h3>
+            <p>
+              Built features for an existing multi-tenant SaaS marketplace
+              platform using Node.js, React, and ASP.NET Core. Developed new
+              Web APIs and collaborated with cross-functional teams using
+              Jira and Confluence.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Feb 2023 — July 2023</span>
+            <h3>Software Support Specialist <span class="timeline-sub">· 8Box Solutions, Manila</span></h3>
+            <p>
+              Handled server-side logic with Node.js and Express, designed
+              database schemas, developed API endpoints, and managed
+              deployments for internal web projects.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Nov 2022 — Jan 2023</span>
+            <h3>Software Support Intern <span class="timeline-sub">· 8Box Solutions, Manila</span></h3>
+            <p>
+              Started at 8Box Solutions as an intern, getting hands-on with
+              server-side logic, database schemas, and internal web
+              projects.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section section-alt">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">Projects</p>
+      <h2 class="section-title reveal">Built solo, shipped with teams.</h2>
+      <div class="projects-grid">
+        <article class="project-card reveal">
+          <div class="project-card-top">
+            <span class="project-tag">Featured</span>
+          </div>
+          <h3>FineAnts</h3>
+          <p>
+            A full financial management platform built end to end as the
+            sole developer — dashboard, API, database, and deployment
+            pipeline all handled solo.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill-sm">React</span>
+            <span class="pill pill-sm">Node.js</span>
+            <span class="pill pill-sm">SQL</span>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-card-top">
+            <span class="project-tag">Microservice</span>
+          </div>
+          <h3>Xero Sync</h3>
+          <p>
+            A dedicated microservice that syncs various data from Xero into FineAnts, built on Next.js API
+            routes.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill-sm">Next.js</span>
+            <span class="pill pill-sm">TypeScript</span>
+            <span class="pill pill-sm">Xero API</span>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-card-top">
+            <span class="project-tag">Contributed</span>
+          </div>
+          <h3>Arcadier</h3>
+          <p>
+            Contributed to Arcadier's core multi-vendor marketplace SaaS
+            platform, building and enhancing features used by marketplace
+            businesses to launch and scale their own online marketplaces.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill-sm">React</span>
+            <span class="pill pill-sm">Node.js</span>
+            <span class="pill pill-sm">ASP.NET Core</span>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-card-top">
+            <span class="project-tag">Contributed</span>
+          </div>
+          <h3>BCAA Auto Marketplace</h3>
+          <p>
+            A vehicle marketplace built on Arcadier's platform for BCAA,
+            letting members buy and sell vehicles online. Contributed
+            features and fixes as part of the Arcadier team.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill-sm">React</span>
+            <span class="pill pill-sm">Node.js</span>
+          </div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-card-top">
+            <span class="project-tag">Contributed</span>
+          </div>
+          <h3>8Box ERP System</h3>
+          <p>
+            Contributed to an ERP system built by 8Box Solutions for its
+            clients, handling backend logic, database schema, and API
+            endpoints, starting as an intern before becoming a support
+            specialist.
+          </p>
+          <div class="pill-row">
+            <span class="pill pill-sm">Node.js</span>
+            <span class="pill pill-sm">Express</span>
+            <span class="pill pill-sm">MySQL</span>
+          </div>
+        </article>
+        <article class="project-card project-card-ghost reveal">
+          <div class="ghost-plus">+</div>
+          <h3>My Next Project</h3>
+          <p>Coming soon...</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact-section">
+    <div class="section-inner contact-inner reveal">
+      <p class="section-eyebrow">Contact</p>
+      <h2 class="section-title">Let's build something together.</h2>
+      <p class="about-text">
+        Open to full-stack opportunities and interesting projects. Reach out
+        by email or connect with me on LinkedIn.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:cjvendicacion@gmail.com" class="btn btn-primary">
+          Email Me
+        </a>
+        <a href="https://www.linkedin.com/in/charles-joseph-vendicacion-a17938273/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Charles Joseph Vendicacion.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
