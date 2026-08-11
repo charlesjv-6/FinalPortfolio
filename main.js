@@ -99,8 +99,24 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var particles = [];
-  var mouse = { x: null, y: null, radius: 130 };
+  var BLACKHOLE_BASE_R = 21;
+  var BLACKHOLE_MAX_R = 140;
+  var mouse = { x: null, y: null, radius: BLACKHOLE_BASE_R, consumed: 0 };
   var width, height, dpr;
+  var MAX_PARTICLE_R = 4.5;
+  var STAR_GRAVITY_RANGE = 150;
+  var STAR_GRAVITY_STRENGTH = 0.018;
+
+  function respawnParticle(p) {
+    var edge = Math.floor(Math.random() * 4);
+    if (edge === 0) { p.x = 0; p.y = Math.random() * height; }
+    else if (edge === 1) { p.x = width; p.y = Math.random() * height; }
+    else if (edge === 2) { p.x = Math.random() * width; p.y = 0; }
+    else { p.x = Math.random() * width; p.y = height; }
+    p.vx = (Math.random() - 0.5) * 0.35;
+    p.vy = (Math.random() - 0.5) * 0.35;
+    p.r = Math.random() * 1.8 + 0.6;
+  }
 
   function getParticleColor() {
     var value = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim();
@@ -145,21 +161,54 @@
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
+      p.stretch = 0;
+
       if (mouse.x !== null) {
-        var dx = p.x - mouse.x;
-        var dy = p.y - mouse.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
+        var dx = mouse.x - p.x;
+        var dy = mouse.y - p.y;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 0.001;
         if (dist < mouse.radius) {
-          var force = (mouse.radius - dist) / mouse.radius;
-          p.x += (dx / dist) * force * 1.2;
-          p.y += (dy / dist) * force * 1.2;
+          if (dist < 4) {
+            respawnParticle(p);
+            mouse.consumed++;
+            mouse.radius = Math.min(
+              BLACKHOLE_MAX_R,
+              BLACKHOLE_BASE_R + Math.sqrt(mouse.consumed) * 9
+            );
+          } else {
+            var t = 1 - dist / mouse.radius;
+            var swirl = t * 1.8;
+            var pull = Math.pow(t, 3) * 3.2;
+            var nx = dx / dist;
+            var ny = dy / dist;
+            var tx = -ny;
+            var ty = nx;
+            p.x += nx * pull + tx * swirl;
+            p.y += ny * pull + ty * swirl;
+            p.stretch = t;
+            p.dirx = nx;
+            p.diry = ny;
+          }
         }
       }
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + color + ', 0.7)';
-      ctx.fill();
+      if (p.stretch > 0.15) {
+        var len = p.r * 2 + p.stretch * p.stretch * 26;
+        var hx = p.dirx * len * 0.5;
+        var hy = p.diry * len * 0.5;
+        ctx.beginPath();
+        ctx.moveTo(p.x - hx, p.y - hy);
+        ctx.lineTo(p.x + hx, p.y + hy);
+        ctx.strokeStyle = 'rgba(' + color + ', ' + (0.75 - p.stretch * 0.25) + ')';
+        ctx.lineWidth = Math.max(0.6, p.r * (1 - p.stretch * 0.5));
+        ctx.lineCap = 'round';
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + color + ', 0.7)';
+        ctx.fill();
+      }
     }
 
     for (var a = 0; a < particles.length; a++) {
@@ -169,6 +218,30 @@
         var ddx = pa.x - pb.x;
         var ddy = pa.y - pb.y;
         var d = Math.sqrt(ddx * ddx + ddy * ddy);
+
+        if (d < STAR_GRAVITY_RANGE && d > 0.001) {
+          var gDist = Math.max(d, 8);
+          var gdirx = -ddx / d;
+          var gdiry = -ddy / d;
+          var forceOnA = (pb.r / gDist) * STAR_GRAVITY_STRENGTH;
+          var forceOnB = (pa.r / gDist) * STAR_GRAVITY_STRENGTH;
+          pa.x += gdirx * forceOnA;
+          pa.y += gdiry * forceOnA;
+          pb.x -= gdirx * forceOnB;
+          pb.y -= gdiry * forceOnB;
+        }
+
+        if (d < pa.r + pb.r) {
+          var winner = pa.r >= pb.r ? pa : pb;
+          var loser = pa.r >= pb.r ? pb : pa;
+          var absorbed = loser.r * 0.05;
+          winner.r = Math.min(MAX_PARTICLE_R, winner.r + absorbed);
+          loser.r -= absorbed;
+          if (loser.r < 0.4) {
+            respawnParticle(loser);
+          }
+        }
+
         if (d < 120) {
           ctx.beginPath();
           ctx.moveTo(pa.x, pa.y);
@@ -178,6 +251,28 @@
           ctx.stroke();
         }
       }
+    }
+
+    if (mouse.x !== null) {
+      var gradient = ctx.createRadialGradient(
+        mouse.x, mouse.y, 0,
+        mouse.x, mouse.y, mouse.radius
+      );
+      gradient.addColorStop(0, 'rgba(0, 0, 0, 0.92)');
+      gradient.addColorStop(0.18, 'rgba(0, 0, 0, 0.7)');
+      gradient.addColorStop(0.4, 'rgba(' + color + ', 0.22)');
+      gradient.addColorStop(1, 'rgba(' + color + ', 0)');
+
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, Math.max(4, mouse.radius * 0.1), 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(' + color + ', 0.9)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
     }
 
     if (!reduceMotion) requestAnimationFrame(step);
